@@ -19,6 +19,9 @@
 const jokes = document.querySelector('#jokes');
 const button = document.querySelector('button');
 
+
+//await 
+
 const addNewJoke = async () => {
     const jokeString = await iCanJoke();
     const newLi = document.createElement(('LI'));
@@ -26,16 +29,22 @@ const addNewJoke = async () => {
     jokes.append(newLi);
 }
 
+//fetch with Async await
+
 const iCanJoke = async () => {
 
+    //accept means : I want jSON from API 
     try {
-
-        const config = { headers: { Accept: "application/json" } };
-        const res = await axios.get("https://icanhazdadjoke.com/", config);
-        return res.data.joke
+        const response = await fetch("https://icanhazdadjoke.com/", {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        const parsedData = await response.json();
+        return parsedData.joke;
 
     } catch (err) {
-        alert("Ooppps! No jokes available at the moment! Contact Ally :)", err)
+        console.log("Ooppps! No jokes available at the moment! Contact Ally :)", err)
     }
 }
 
