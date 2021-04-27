@@ -21,7 +21,7 @@ const button = document.querySelector('button');
 
 
 //await 
-
+//run remaining code once iCanJoke is finished
 const addNewJoke = async () => {
     const jokeString = await iCanJoke();
     const newLi = document.createElement(('LI'));
@@ -31,17 +31,17 @@ const addNewJoke = async () => {
 
 //fetch with Async await
 
-const iCanJoke = async () => {
+const iCanJoke = () => {
 
     //accept means : I want jSON from API 
     try {
-        const response = await fetch("https://icanhazdadjoke.com/", {
+        const response = fetch("https://icanhazdadjoke.com/", {
             headers: {
                 'Accept': 'application/json'
             }
         });
-        const parsedData = await response.json();
-        return parsedData.joke;
+        const parsedData = response.then(param => param.json());
+        return parsedData.then(json => json.joke);
 
     } catch (err) {
         console.log("Ooppps! No jokes available at the moment! Contact Ally :)", err)
